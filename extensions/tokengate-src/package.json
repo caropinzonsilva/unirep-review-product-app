@@ -10,11 +10,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@semaphore-protocol/identity": "^3.9.0",
     "@shopify/connect-wallet": "^0.1.0",
     "@shopify/gate-context-client": "^0.1.0",
     "@shopify/tokengate": "^0.1.0",
+    "@unirep/circuits": "^2.0.0-beta-3",
+    "@unirep/core": "^2.0.0-beta-3",
+    "@unirep/utils": "^2.0.0-beta-3",
+    "mobx": "^6.9.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "snarkjs": "^0.4.27"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "3.1.0",
