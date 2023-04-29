@@ -1,0 +1,8 @@
+name: unirep-product-review-app
+
+type: rails
+
+up:
+  - ruby: 3.2.1
+  - node:
+      version: v18.16.0

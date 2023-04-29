@@ -8,10 +8,14 @@ import { Tokengate } from "@shopify/tokengate";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { mainnet } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
-import { useEvaluateGate } from './useEvaluateGate';
+import { useEvaluateGate } from "./useEvaluateGate";
+import { ProductRating } from "./components/ProductRating";
 
 const _App = () => {
-  const { isLocked, unlockingTokens, evaluateGate, gateEvaluation } = useEvaluateGate();
+  return <ProductRating />;
+
+  const { isLocked, unlockingTokens, evaluateGate, gateEvaluation } =
+    useEvaluateGate();
   const { wallet } = useConnectWallet({
     onConnect: (wallet) => {
       evaluateGate(wallet);
