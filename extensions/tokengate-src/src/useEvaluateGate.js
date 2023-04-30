@@ -3,9 +3,9 @@ import { getGateContextClient } from "@shopify/gate-context-client";
 
 // Set this to the ngrok url that is generated when you run the server
 // The url will be something like https://12345678.ngrok.io (no trailing slash or query params)
-export const host = "YOUR_NGROK_URL";
+export const host = "https://5eb0-78-188-44-221.ngrok-free.app";
 
-if (host == "https://b7d8-78-188-44-221.ngrok-free.app") {
+if (host == "YOUR_NGROK_URL") {
   console.error(`
     ************************************************************
     You must set the host to your ngrok url in useEvaluateGate.js.

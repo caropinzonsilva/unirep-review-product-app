@@ -10,6 +10,8 @@ import retrieveGates from "./api/retrieve-gates.js";
 import deleteGate from "./api/delete-gate.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 import { configurePublicApi } from "./public-api.js";
+import nftBalance from "./api/nft-balance.js";
+import transferNft from "./api/transfer-nft.js";
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
@@ -87,6 +89,27 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
     .status(200)
     .set("Content-Type", "text/html")
     .send(readFileSync(join(STATIC_PATH, "index.html")));
+});
+
+app.post("/api/transferNft", async (req, res) => {
+  const { toAddress } = req.body;
+
+  console.log("/api/transferNft", toAddress);
+  const ownedTokens = await nftBalance({ address: toAddress });
+
+  if (ownedTokens.length > 0) {
+    return res.status(200).send({
+      code: "ADDRESS_ALREADY_OWNS_TOKEN",
+      token: ownedTokens[0].metadata,
+    });
+  }
+
+  const response = await transferNft({ toAddress });
+
+  res.status(200).send({
+    code: "NEW_TOKEN_CREATED",
+    token: response?.token.metadata,
+  });
 });
 
 app.listen(PORT);

@@ -21,7 +21,7 @@ export default defineConfig({
         inlineDynamicImports: true,
         dir: "../tokengate/assets",
         entryFileNames: "index.js",
-        assetFileNames: "[name].[ext]",
+        assetFileNames: '[name].[ext]',
       },
     },
   },

@@ -18,7 +18,14 @@ export function configurePublicApi(app) {
 
   app.post("/public/gateEvaluation", cors(corsOptions), async (req, res) => {
     // Evaluate the gate, message, and signature
-    const { shopDomain, productGid, address, message, signature, gateConfigurationGid } = req.body;
+    const {
+      shopDomain,
+      productGid,
+      address,
+      message,
+      signature,
+      gateConfigurationGid,
+    } = req.body;
 
     // Verify signature
     const recoveredAddress = web3.eth.accounts.recover(message, signature);
@@ -28,7 +35,10 @@ export function configurePublicApi(app) {
     }
 
     // Retrieve relevant contract addresses from gates
-    const requiredContractAddresses = await getContractAddressesFromGate({shopDomain, productGid});
+    const requiredContractAddresses = await getContractAddressesFromGate({
+      shopDomain,
+      productGid,
+    });
 
     // Lookup tokens
     const unlockingTokens = await retrieveUnlockingTokens(
@@ -41,10 +51,10 @@ export function configurePublicApi(app) {
     }
 
     const payload = {
-      id: gateConfigurationGid
+      id: gateConfigurationGid,
     };
 
-    const response = {gateContext: [getHmac(payload)], unlockingTokens};
+    const response = { gateContext: [getHmac(payload)], unlockingTokens };
     res.status(200).send(response);
   });
 }
@@ -64,10 +74,9 @@ function retrieveUnlockingTokens(address, contractAddresses) {
   // This could be a lookup against a node or a 3rd party service like Alchemy
   return Promise.resolve([
     {
-      name: "CryptoPunk #1719",
-      imageUrl:
-        "https://storage.cloud.google.com/shopify-blockchain-development/images/punk1719.png",
-      collectionName: "CryptoPunks",
+      name: "Product Reviewer Badge",
+      imageUrl: "https://th.bing.com/th/id/OIG.S0TjDU3c8mmGFEBSiQI8?pid=ImgG",
+      collectionName: "REWVER",
       collectionAddress: "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB",
     },
   ]);

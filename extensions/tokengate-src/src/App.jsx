@@ -9,11 +9,9 @@ import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { mainnet } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { useEvaluateGate } from "./useEvaluateGate";
-import { ProductRating } from "./components/ProductRating";
+import { OneClickGiftNft } from "./components/OneClickGiftNft/OneClickGiftNft";
 
 const _App = () => {
-  return <ProductRating />;
-
   const { isLocked, unlockingTokens, evaluateGate, gateEvaluation } =
     useEvaluateGate();
   const { wallet } = useConnectWallet({
@@ -37,11 +35,12 @@ const _App = () => {
   );
 };
 
-export const App = () => {
+export const App = ({ gated }) => {
   return (
     <WagmiConfig client={client}>
       <ConnectWalletProvider chains={chains} wallet={undefined}>
-        <_App />
+        {gated ? <_App /> : null}
+        <OneClickGiftNft />
       </ConnectWalletProvider>
     </WagmiConfig>
   );

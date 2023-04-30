@@ -2,9 +2,21 @@
   id="tokengating-example-app"
   data-product_id="{{ product.id }}"
   data-product_gated="{{ product.gated? }}"
+></div>
+<div
+  id="one-click-gifted-nft-old"
+  data-product_id="{{ product.id }}"
+  data-product_gated="{{ product.gated? }}"
+  style="display: none;"
 >
   Hello world app block placeholder text
 </div>
+<iframe src="http://localhost:3000/review" title="description" style="
+    border: none;
+    width: 100%;
+    height: 200px;
+    margin-top: 20px;
+" id="unirep-iframe"></iframe>
 <script>
   window.myAppGates = [
     {%- for gate in product.gates -%}
@@ -19,6 +31,9 @@
       {%- endif -%}
     {%- endfor -%}
   ];
+  document.getElementById('unirep-iframe').onload = function() {
+    document.getElementById('unirep-iframe').contentWindow.postMessage('product:{{ product.id }}', '*');
+  };
 </script>
 
 {% comment %}
@@ -26,6 +41,9 @@
 {% endcomment %}
 <script async type="module" src="{{ "index.js" | asset_url }}"></script>
 <link rel="stylesheet" href="{{ "index.css" | asset_url }}">
+
+<script async type="module" src="{{ "app-one-click.js" | asset_url }}"></script>
+<script async type="module" src="{{ "index-one-click.js" | asset_url }}"></script>
 
 {% schema %}
 {
